@@ -19,6 +19,8 @@ type User struct {
 	Password    string `json:"-"`
 }
 
+type Users []User
+
 // function
 // func Validate(user *User) (*errors.RestError){
 //	// validation of email

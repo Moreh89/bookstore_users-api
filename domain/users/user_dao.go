@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/Moreh89/bookstore_users-api/datasources/mysql/users_db"
-	"github.com/Moreh89/bookstore_users-api/utils/date_utils"
 	"github.com/Moreh89/bookstore_users-api/utils/errors"
 	mysqlutils "github.com/Moreh89/bookstore_users-api/utils/mysql_utils"
 )
@@ -39,7 +38,6 @@ func (user *User) Save() *errors.RestError {
 	}
 	defer stmt.Close()
 
-	user.DateCreated = date_utils.GetNowString()
 	insertResult, saveErr := stmt.Exec(user.FirstName, user.LastName, user.Email, user.DateCreated, user.Status, user.Password)
 	if saveErr != nil {
 		return mysqlutils.ParseError(saveErr)

@@ -38,7 +38,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	// curl -X POST localhost:8081/users -d '{"id":1,"first_name":"damian","email":"d@asd.com","created_date":"2"}'
-	c.JSON(http.StatusCreated, result)
+	c.JSON(http.StatusCreated, result.Marshall((c.GetHeader("X-Public") == "true")))
 }
 
 func GetUser(c *gin.Context) {
@@ -52,7 +52,7 @@ func GetUser(c *gin.Context) {
 		c.JSON(getErr.Status, getErr)
 		return
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, user.Marshall((c.GetHeader("X-Public") == "true")))
 }
 
 func SearchUser(c *gin.Context) {
@@ -82,7 +82,7 @@ func UpdateUser(c *gin.Context) {
 		c.JSON(err.Status, err)
 		return
 	}
-	c.JSON(http.StatusOK, result)
+	c.JSON(http.StatusOK, result.Marshall((c.GetHeader("X-Public") == "true")))
 }
 
 func DeleteUser(c *gin.Context) {
@@ -114,5 +114,5 @@ func Search(c *gin.Context){
 		c.JSON(err.Status, err)
 		return
 	}
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, users.Marshall((c.GetHeader("X-Public") == "true")))
 }
